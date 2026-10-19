@@ -63,4 +63,4 @@ All files are unmodified official downloads, plus CSVs extracted directly from t
 - Fallback for ZIPs that are not ZCTAs (PO-box, unique and similar ZIPs; 7,337 rows): GeoNames US postal codes, https://download.geonames.org/export/zip/US.zip (CC BY 4.0).
 - Last fallback (38 Puerto Rico ZIPs): HUD FY2026 SAFMR area names that name exactly one state (all ", PR").
 - Covers 38,600 of the 38,601 ZIPs in `derived/hud_fmr.json`; only 88888 (HUD area DC-VA-MD, multi-state) is left out. Military APO/FPO ZIPs (AA/AE/AP) are not included.
-- 12 border ZIPs where Census (land area) and GeoNames (mailing state) disagree keep the Census state: 03579, 42223, 56219, 57648, 72338, 79837, 82063, 82930, 83120, 86515 and two more listed in the PR.
+- 12 border ZIPs where Census (land area) and GeoNames (mailing state) disagree keep the Census state: 03579 (ME vs NH), 42223 (TN vs KY), 56219 (SD vs MN), 57648 (ND vs SD), 72338 (TN vs AR), 79837 (NM vs TX), 82063 (CO vs WY), 82930 (UT vs WY), 83120 (ID vs WY), 86515 (NM vs AZ), 89421 (OR vs NV), 97635 (CA vs OR); first state = Census, kept.
