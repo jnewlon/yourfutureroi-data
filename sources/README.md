@@ -8,6 +8,7 @@ All files are unmodified official downloads, plus CSVs extracted directly from t
 - Data year: FY2026. HUD published both `fy2026_safmrs.xlsx` and `fy2026_safmrs_revised.xlsx`; the revised file supersedes the original. (FY2027 SAFMRs are also published but not included.)
 - `hud/fy2026_safmrs_revised.xlsx`: original workbook (SAFMRs at 100%, 90% and 110% payment standards).
 - `hud/fy2026_safmrs_by_zip.csv`: 51,895 rows, 38,601 unique ZIPs. A ZIP can appear more than once when it spans multiple HUD FMR areas; all rows are kept.
+  - Cleanup (2026-10-18): line breaks inside `metro_area` values (from wrapped cells in HUD's workbook) were replaced with a single space and repeated whitespace was collapsed (3,190 fields with line breaks, plus 184 "Cincinnati, OH-KY-IN  HUD Metro FMR Area" double spaces). No other values changed; the original workbook is unmodified.
   - Fields: `zip` (5-digit, zero-padded), `efficiency` (SAFMR 0BR), `1br`, `2br`, `3br`, `4br` (100% SAFMR, monthly USD), `metro_area` (HUD Fair Market Rent Area Name), `hud_area_code`.
 
 ## BLS OEWS state wages, May 2025
