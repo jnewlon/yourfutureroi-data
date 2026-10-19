@@ -26,3 +26,22 @@ All files are unmodified official downloads, plus CSVs extracted directly from t
 - `bea/SARPP_STATE_2008_2024.csv`, `bea/SARPP__Footnotes.html`, `bea/SARPP__definition.xml`: original files from the zip (all line codes, 2008-2024).
 - `bea/bea_rpp_state_2024.csv`: 52 rows (United States + 50 states + DC).
   - Fields: `geofips`, `state`, `year`, `rpp_all_items` (SARPP line 1, "RPPs: All items"), `rpp_rents_housing` (SARPP line 3, "RPPs: Services: Housing"; BEA's housing RPP is the rents parity, US = 100).
+
+## College Scorecard national field-of-study medians
+- Source page: https://collegescorecard.ed.gov/data/ (retrieved 2026-10-18)
+- Downloads (not committed; ~198 MB and ~102 MB unzipped):
+  - https://ed-public-download.scorecard.network/downloads/Most-Recent-Cohorts-Field-of-Study_10152026.zip
+  - https://ed-public-download.scorecard.network/downloads/Most-Recent-Cohorts-Institution_10152026.zip
+  - Data dictionary / cohort map: https://collegescorecard.ed.gov/files/CollegeScorecardDataDictionary.xlsx
+- `scorecard/national_field_medians.csv` (built by `tools/build_field_medians.py`), 1,223 rows.
+  - Fields: `cip4`, `credential_level` (Scorecard CREDLEV code), `median_earnings` (USD, 2024 dollars), `cohort` (sum of weights), `source_year`.
+  - Field-of-study rows: earnings field `EARN_MDN_4YR` (median earnings of graduates working and not enrolled 4 years after completing), weight `EARN_COUNT_WNE_4YR`. Cohort: AY2017-18 + AY2018-19 completers, measured CY2022 + CY2023, 2024 dollars. 1,222 CIPCODE x CREDLEV groups from 55,624 programs with both values; 167,963 program rows had a suppressed (PrivacySuppressed/PS/NULL/blank) median or count and were skipped.
+  - Method: lower weighted median across schools (sort program medians, take the first whose cumulative weight reaches 50% of total). This covers only programs with published (unsuppressed) medians. The file also publishes official national values per group (`EARN_MDN_4YR_NAT`, `EARN_COUNT_WNE_4YR_NAT`, 2,569 groups), which include suppressed programs; those are not used here.
+  - Row `ALL,INST_10YR`: `MD_EARN_WNE_P10` (median earnings of students working and not enrolled 10 years after entry) from the institution file, weighted by `COUNT_WNE_P10`. Cohort: AY2011-12 + AY2012-13 entrants, measured CY2022 + CY2023, 2024 dollars. Branch campuses repeat their OPEID6's earnings, so each OPEID6 is counted once (5,293 institution rows with values -> 4,079 OPEID6 units). PS/NA values skipped.
+
+## OEWS May 2025 state by occupation
+- Built from `bls/state_M2025_dl.xlsx` (above).
+- `bls/oews_m2025_state_by_occupation.csv`: 35,223 rows, 829 SOC codes, 50 states + DC (Puerto Rico, Guam, Virgin Islands excluded).
+  - Fields: `soc` (OCC_CODE), `state_abbr` (PRIM_STATE), `a_median` (annual median wage, USD).
+  - Detailed occupations only (O_GROUP = detailed; OEWS publishes some combined codes such as 29-2010, 13-1020 as detailed). Major groups and the total are excluded.
+  - Suppressed values are left empty: 607 rows `*` (not available; 145 of them are hourly-only occupations with no annual wage), 92 rows `#` (annual wage at or above $239,200).
